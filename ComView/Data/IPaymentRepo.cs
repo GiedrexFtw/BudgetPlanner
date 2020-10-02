@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ComView.Data
 {
-    interface IPaymentRepo
+    public interface IPaymentRepo
     {
         IEnumerable<Payment> GetPaymentList();
         Payment GetPaymentById(int id);

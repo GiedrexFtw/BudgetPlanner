@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using ComView.Data;
+using ComView.Dto;
 using ComView.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +16,15 @@ namespace ComView.Controllers
     [ApiController]
     public class PaymentController : ControllerBase
     {
-        private readonly MockPaymentRepo _repository = new MockPaymentRepo();
+        private readonly IPaymentRepo _repository;
+        private readonly IMapper _mapper;
+
+        public PaymentController(IPaymentRepo paymentRepo, IMapper mapper)
+        {
+            _repository = paymentRepo;
+            _mapper = mapper;
+
+        }
         // GET: api/<PaymentController>
         [HttpGet]
         public ActionResult<IEnumerable<Payment>> Get()
@@ -26,11 +36,16 @@ namespace ComView.Controllers
 
         // GET api/<PaymentController>/5
         [HttpGet("{id}")]
-        public ActionResult<Payment> Get(int id)
+        public ActionResult<PaymentReadDto> Get(int id)
         {
             var payment = _repository.GetPaymentById(id);
-
-            return Ok(payment);
+            if (payment != null)
+            {
+                return Ok(_mapper.Map<PaymentReadDto>(payment));
+            }
+            else
+                return NotFound();
+           
         }
 
         // POST api/<PaymentController>
