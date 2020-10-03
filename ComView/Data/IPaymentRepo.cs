@@ -10,7 +10,8 @@ namespace ComView.Data
     {
         IEnumerable<Payment> GetPaymentList();
         Payment GetPaymentById(int id);
-
+        void CreatePayment(Payment payment);
+        bool SaveChanges();
 
     }
 }

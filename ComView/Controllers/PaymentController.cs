@@ -31,11 +31,11 @@ namespace ComView.Controllers
         {
             var payments = _repository.GetPaymentList();
 
-            return Ok(payments);
+            return Ok(_mapper.Map<IEnumerable<PaymentReadDto>>(payments));
         }
 
         // GET api/<PaymentController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "Get")]
         public ActionResult<PaymentReadDto> Get(int id)
         {
             var payment = _repository.GetPaymentById(id);
@@ -50,8 +50,13 @@ namespace ComView.Controllers
 
         // POST api/<PaymentController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<PaymentReadDto> Post([FromBody]PaymentCreateDto createDto)
         {
+            var payment = _mapper.Map<Payment>(createDto);
+            _repository.CreatePayment(payment);
+            _repository.SaveChanges();
+            var readDto = _mapper.Map<PaymentReadDto>(payment);
+            return CreatedAtRoute(nameof(Get), new {Id = readDto.Id }, readDto);
         }
 
         // PUT api/<PaymentController>/5

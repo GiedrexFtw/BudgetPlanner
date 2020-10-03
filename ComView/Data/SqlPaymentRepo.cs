@@ -14,6 +14,17 @@ namespace ComView.Data
         {
             _paymentContext = paymentContext;
         }
+
+        public void CreatePayment(Payment payment)
+        {
+            if (payment != null)
+            {
+                _paymentContext.Payments.Add(payment);
+            }
+            else
+                throw new ArgumentException();
+        }
+
         public Payment GetPaymentById(int id)
         {
             return _paymentContext.Payments.FirstOrDefault(p => p.Id == id);
@@ -22,6 +33,11 @@ namespace ComView.Data
         public IEnumerable<Payment> GetPaymentList()
         {
             return _paymentContext.Payments.ToList();
+        }
+
+        public bool SaveChanges()
+        {
+            return _paymentContext.SaveChanges() >= 0;
         }
     }
 }

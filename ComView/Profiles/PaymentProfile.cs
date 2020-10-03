@@ -13,6 +13,7 @@ namespace ComView.Profiles
         public PaymentProfile()
         {
             CreateMap<Payment, PaymentReadDto>();
+            CreateMap<PaymentCreateDto, Payment>();
         }
     }
 }

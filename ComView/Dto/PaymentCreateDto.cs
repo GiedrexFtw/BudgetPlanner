@@ -4,12 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ComView.Models
+namespace ComView.Dto
 {
-    public class Payment
+    public class PaymentCreateDto
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         [MaxLength(250)]
