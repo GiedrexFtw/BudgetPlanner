@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ComView.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,14 +7,19 @@ using System.Threading.Tasks;
 
 namespace ComView.Dto
 {
-    public class PaymentCreateDto
+    public class ReportCreateDto
     {
+        [Required]
+        public DateTime Date { get; set; }
+        [Required]
+        public string Type { get; set; }
         [Required]
         public string Title { get; set; }
         [MaxLength(250)]
         public string Description { get; set; }
         [Required]
-        public double Amount { get; set; }
-        public DateTime DateTo { get; set; }
+        public ICollection<Day> Days { get; set; }
+        [Required]
+        public bool IsExportable { get; set; }
     }
 }

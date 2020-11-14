@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace ComView.Profiles
 {
-    public class PaymentProfile: Profile
+    public class UserProfile : Profile
     {
-        public PaymentProfile()
+        public UserProfile()
         {
-            CreateMap<Payment, PaymentReadDto>();
-            CreateMap<PaymentCreateDto, Payment>();
+            CreateMap<User, UserLoginDto>();
+            CreateMap<UserLoginDto, User>();
         }
     }
 }

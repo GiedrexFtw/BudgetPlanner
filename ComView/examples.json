@@ -1,0 +1,68 @@
+{
+  "date": "2020-01-30",
+  "type": "administracine",
+  "title": "administracine ataskaita apie mityba",
+  "description": "ataskaitos tekstas",
+  "days": [
+    {
+      "date": "2020-05-30",
+      "description": "Pirma prideta diena",
+      "products": [
+        {
+          "title": "naujas produktas 1",
+          "description": "aprasymas",
+          "amount": 10.5
+        },
+        {
+          "title": "naujas produktas 2",
+          "description": "produkto 2 aprasymas",
+          "amount": 10.5
+        }
+      ]
+    },
+    {
+      "date": "2020-05-30",
+      "description": "Antra prideta diena",
+      "products": [
+        {
+          "title": "naujas produktas 3",
+          "description": "aprasymas",
+          "amount": 10.5
+        },
+        {
+          "title": "naujas produktas 4",
+          "description": "produkto 4 aprasymas",
+          "amount": 10.5
+        }
+      ]
+    }
+  ]
+}
+
+
+
+{
+  "date": "2020-05-30",
+  "description": "Antra prideta diena",
+  "products": [
+    {
+      "title": "naujas produktas 3",
+      "description": "aprasymas",
+      "amount": 10.5
+    },
+    {
+      "title": "naujas produktas 4",
+      "description": "produkto 4 aprasymas",
+      "amount": 10.5
+    }
+  ]
+}
+
+
+{
+      "title": "naujas produktas 3",
+      "description": "aprasymas",
+      "amount": 10.5
+}
+
+
