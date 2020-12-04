@@ -6,6 +6,7 @@ using AutoMapper;
 using ComView.Data;
 using ComView.Dto;
 using ComView.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,7 @@ namespace ComView.Controllers
 
         }
         // GET: api/<DaysController>
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public ActionResult<IEnumerable<Day>> GetList()
         {
@@ -35,6 +37,7 @@ namespace ComView.Controllers
         }
 
         // GET api/<DaysController>/5
+        [Authorize(Roles = "Admin,User")]
         [HttpGet("{id}", Name = "GetDay")]
         public ActionResult<DayReadDto> GetDay(int id)
         {
@@ -49,6 +52,7 @@ namespace ComView.Controllers
         }
 
         // POST api/<DayController>
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public ActionResult<DayReadDto> Post([FromBody] DayCreateDto createDto)
         {
@@ -60,6 +64,7 @@ namespace ComView.Controllers
         }
 
         // PUT api/<DayController>/5
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] DayUpdateDto dayUpdateDto)
         {
@@ -68,12 +73,15 @@ namespace ComView.Controllers
             {
                 return NotFound();
             }
+            
             _mapper.Map(dayUpdateDto, dayToUpdate);
+            _repository.CheckProducts(dayToUpdate);
             _repository.UpdateDay(dayToUpdate);
             _repository.SaveChanges();
             return NoContent();
         }
         // PATCH api/<DayController>/5
+        [Authorize(Roles = "Admin")]
         [HttpPatch]
         public ActionResult Patch(int id, [FromBody] JsonPatchDocument<DayUpdateDto> jsonPatchDocument)
         {
@@ -95,6 +103,7 @@ namespace ComView.Controllers
         }
 
         // DELETE api/<DayController>/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

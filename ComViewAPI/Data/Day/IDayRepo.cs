@@ -1,4 +1,5 @@
-﻿using ComView.Models;
+﻿using ComView.Dto;
+using ComView.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace ComView.Data
         bool SaveChanges();
         void UpdateDay(Day day);
         void DeleteDay(Day day);
+        void CheckProducts(Day dayToUpdate);
     }
 }

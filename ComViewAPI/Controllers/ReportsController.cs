@@ -6,6 +6,7 @@ using AutoMapper;
 using ComView.Data;
 using ComView.Dto;
 using ComView.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,7 @@ namespace ComView.Controllers
 
         }
         // GET: api/<ReportController>
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public ActionResult<IEnumerable<Report>> GetList()
         {
@@ -34,6 +36,7 @@ namespace ComView.Controllers
         }
 
         // GET api/<ReportController>/5
+        [Authorize(Roles = "Admin,User")]
         [HttpGet("{id}", Name = "GetReport")]
         public ActionResult<ReportReadDto> GetReport(int id, [FromQuery(Name = "dayId")] int? dayIdString, [FromQuery(Name ="productId")] int? productIdString)
         {
@@ -58,6 +61,7 @@ namespace ComView.Controllers
 
         }
         // POST api/<ReportController>
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public ActionResult<ReportReadDto> Post([FromBody] ReportCreateDto createDto)
         {
@@ -69,6 +73,7 @@ namespace ComView.Controllers
         }
 
         // PUT api/<ReportController>/5
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] ReportUpdateDto reportUpdateDto)
         {
@@ -83,6 +88,7 @@ namespace ComView.Controllers
             return NoContent();
         }
         // PATCH api/<ReportController>/5
+        [Authorize(Roles = "Admin")]
         [HttpPatch]
         public ActionResult Patch(int id, [FromBody] JsonPatchDocument<ReportUpdateDto> jsonPatchDocument)
         {
@@ -104,6 +110,7 @@ namespace ComView.Controllers
         }
 
         // DELETE api/<ReportController>/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

@@ -1,4 +1,5 @@
-﻿using ComView.Models;
+﻿using ComView.Dto;
+using ComView.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,25 @@ namespace ComView.Data
         public SqlDayRepo(ApplicationContext dayContext)
         {
             _appContext = dayContext;
+        }
+
+        public void CheckProducts(Day dayToUpdate)
+        {
+            ICollection<Product> collection = new List<Product>();
+            //var newProduct = dayToUpdate.Products.Where(x => x.Id == 0);
+            foreach (var item in dayToUpdate.Products)
+            {
+                if(item.Id == 0)
+                {
+                    collection.Add(item);
+                }
+            }
+            dayToUpdate.Products.Clear();
+            foreach (var item in collection)
+            {
+                dayToUpdate.Products.Add(item);
+            }
+            
         }
 
         public void CreateDay(Day day)

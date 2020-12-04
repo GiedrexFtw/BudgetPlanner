@@ -27,8 +27,8 @@ namespace ComView.Controllers
             _mapper = mapper;
 
         }
-        [Authorize(Roles = "Admin")]
         // GET: api/<ProductController>
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<IEnumerable<Product>> GetList()
         {
@@ -38,6 +38,7 @@ namespace ComView.Controllers
         }
 
         // GET api/<ProductController>/5
+        [Authorize(Roles = "Admin,User")]
         [HttpGet("{id}", Name = "GetProduct")]
         public ActionResult<ProductReadDto> GetProduct(int id)
         {
@@ -52,6 +53,7 @@ namespace ComView.Controllers
         }
 
         // POST api/<ProductController>
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public ActionResult<ProductReadDto> Post([FromBody]ProductCreateDto createDto)
         {
@@ -63,6 +65,7 @@ namespace ComView.Controllers
         }
 
         // PUT api/<ProductController>/5
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] ProductUpdateDto productUpdateDto)
         {
@@ -77,6 +80,7 @@ namespace ComView.Controllers
             return NoContent();
         }
         // PATCH api/<ProductController>/5
+        [Authorize(Roles = "Admin")]
         [HttpPatch]
         public ActionResult Patch(int id, [FromBody] JsonPatchDocument<ProductUpdateDto> jsonPatchDocument)
         {
@@ -98,6 +102,7 @@ namespace ComView.Controllers
         }
 
         // DELETE api/<ProductController>/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
