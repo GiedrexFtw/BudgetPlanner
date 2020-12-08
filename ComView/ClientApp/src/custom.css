@@ -1,4 +1,5 @@
 /* Provide sufficient contrast against white background */
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil');
 a {
   color: #0366d6;
 }
@@ -6,9 +7,46 @@ a {
 code {
   color: #E01A76;
 }
+.container{
+    color:#565656;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50%;
+}
 
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+body {
+    background-color: #EFEFEF;
+}
+h1{
+    font-family:"Allerta Stencil";
+}
+.footer-info{
+    color:whitesmoke;
+}
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+    
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+    
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    
+}
+
+/* Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+    
 }

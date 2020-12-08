@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class Home extends Component {
   static displayName = Home.name;
 
   render () {
-    return (
-      <div>
-        <h1>Hello, world!</h1>
-        <p>Welcome to your new single-page application, built with:</p>
-        <ul>
-          <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
-          <li><a href='https://facebook.github.io/react/'>React</a> for client-side code</li>
-          <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-        </ul>
-        <p>To help you get started, we have also set up:</p>
-        <ul>
-          <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-          <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-          <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
-        </ul>
-        <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
+      return (
+       
+          <div className="container" > 
+              <div className="row"> 
+                  <div className="col-12 mb-2">
+                      <h1 style={{ textAlign: "center", color: "black" }}>Welcome to Comview!</h1>
+                      <img src="https://i.imgflip.com/36capl.jpg" className="center"/>
+                  </div>
+              </div>
+              
+              <div className="row">
+                  <div className="col-8-md mr-2">
+                      <h3> What is Comview?</h3>
+                      <p>Comview is a budget planner app, which allows you to track your expenses and make changes!</p>
+                      <img src="https://s3-ap-south-1.amazonaws.com/blogmindler/bloglive/wp-content/uploads/2016/07/06131941/giphyeco.gif" className="center" />
+                  </div>
+                  <div className="col-4-md">
+                      <h2> Comview allows you to:</h2>
+                      <ul>
+                          <li>Add, modify and change your expenses</li>
+                          <li>Track each expense by category</li>
+                          <li>Check your expenses in graphs</li>
+                      </ul>
+                  </div>
+              </div>
+        
+              <p>But first, to track your expenses, please <Link tag={Link} className="text-danger border-bottom border-success font-weight-bold" to="/fetch-data">Login</Link>.</p>
       </div>
     );
   }

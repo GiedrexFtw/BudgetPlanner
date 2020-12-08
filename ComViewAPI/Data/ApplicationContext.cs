@@ -1,4 +1,5 @@
 ﻿using ComView.Models;
+using ComViewAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace ComView.Data
         public DbSet<Day> Days { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options):base(options)
         {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ComView.Dto;
 using ComView.Models;
+using ComViewAPI.Dto.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace ComView.Profiles
         {
             CreateMap<User, UserLoginDto>();
             CreateMap<UserLoginDto, User>();
+            CreateMap<UserRegisterDto, User>();
+            CreateMap<User, UserRegisterDto>();
         }
     }
 }

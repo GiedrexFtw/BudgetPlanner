@@ -1,5 +1,6 @@
 ﻿using ComView.Dto;
 using ComView.Models;
+using ComViewAPI.Dto.User;
 using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,15 @@ namespace ComView.Data
         public void SaveChanges()
         {
             _appContext.SaveChanges();
+        }
+        public void AddUser(User user)
+        {
+            _appContext.Users.Add(user);
+        }
+        public bool Validate(UserRegisterDto user)
+        {
+            bool userAlreadyExists = this.GetUserByUsername(user.Username) != null ? true : false;
+            return user.Password.Length > 3 && user.Username.Length > 3 && !userAlreadyExists;
         }
     }
 }

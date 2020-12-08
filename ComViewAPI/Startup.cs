@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using ComView.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ComViewAPI.Data;
 
 namespace ComView
 {
@@ -41,6 +42,17 @@ namespace ComView
                 opt.Authority = $"{Configuration["AAD:InstanceId"]}{Configuration["AAD:TenantId"]}";
                 
             });*/
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                builder =>
+                {
+                    builder.WithOrigins("https://localhost:5001")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                });
+            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
             {
                 opt.RequireHttpsMetadata = false;
@@ -64,6 +76,7 @@ namespace ComView
             services.AddScoped<IDayRepo, SqlDayRepo>();
             services.AddScoped<IReportRepo, SqlReportRepo>();
             services.AddScoped<IUserRepo, SqlUserRepo>();
+            services.AddScoped<ICategoryRepo, SqlCategoryRepo>();
             services.AddTransient<IJwtAuthenticationManager>
                 (x => new JwtAuthenticationManager(key));
             services.AddSingleton<IRefreshTokenGenerator, RefreshTokenGenerator>();
@@ -81,7 +94,7 @@ namespace ComView
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
