@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import { Cookies } from 'react-cookie';
+import { Spinner } from 'reactstrap';
 export class Products extends Component {
   static displayName = Products.name;
 
   constructor(props) {
-    super(props);
+      super(props);
+      
     this.state = { products: [], loading: true };
   }
 
     componentDidMount() {
         let cookie = new Cookies();
-        let jwt = cookie.get("accesss_token");
-        if (typeof jwt !== undefined) {
-
+        let jwt = cookie.get("access_token");
+        if (typeof jwt !== "undefined") {
+            this.populateProductData(jwt);
         }
-        else {
-            this.populateProductData();
-        }
-        
   }
 
   static renderProductsTable(products) {
@@ -42,10 +40,36 @@ export class Products extends Component {
       </table>
     );
   }
-
-  async populateProductData() {
-    const response = await fetch('https://localhost:6001/api/products');
+    render() {
+        let contents = this.state.loading
+            ? <div>
+                <Spinner type="grow" color="warning">
+                </Spinner>
+                <Spinner type="grow" color="success">
+                </Spinner>
+                <Spinner type="grow" color="danger">
+                </Spinner>
+                <p><em>Loading...</em></p>
+            </div>
+            : Products.renderProductsTable(this.state.products);
+        return (
+            <div>
+                <h1 id="tabelLabel" >Products</h1>
+                {contents}
+            </div>
+        );
+    }
+  async populateProductData(jwt) {
+      const response = await fetch('https://localhost:6001/api/products', {
+          headers: {
+              "Authorization": "bearer " + jwt
+          },
+          redirect: "follow"
+      });
+      if (response.status !== 200) {
+          window.location.replace("/login");
+      }
       const data = await response.json();
-    this.setState({ products: data, loading: false });
+      this.setState({ products: data, loading: false });
   }
 }

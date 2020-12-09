@@ -28,7 +28,7 @@ namespace ComView.Controllers
 
         }
         // GET: api/<ProductController>
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public ActionResult<IEnumerable<Product>> GetList()
         {

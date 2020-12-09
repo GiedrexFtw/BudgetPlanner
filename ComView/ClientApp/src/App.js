@@ -10,7 +10,7 @@ import { Register } from './components/Register/Register';
 import { Categories } from './components/Categories/Categories';
 
 import { NotFound } from './components/NotFound';
-
+import { GuardedRoute } from './GuardedRoute';
 import './custom.css'
 
 export default class App extends Component {
@@ -21,10 +21,10 @@ export default class App extends Component {
         <Layout>
             <Switch>
                 <Route exact path='/' component={Home} />
-                <Route path='/products' component={Products} />
-                <Route path='/categories' component={Categories} />
-                <Route path='/days' component={Days} />
-                <Route path='/reports' component={Reports} />
+                <GuardedRoute path='/products' component={Products} />
+                <GuardedRoute path='/categories' component={Categories} />
+                <GuardedRoute path='/days' component={Days} />
+                <GuardedRoute path='/reports' component={Reports} />
                 <Route path='/login' component={Login} />
                 <Route path='/register' component={Register} />
                 <Route>
