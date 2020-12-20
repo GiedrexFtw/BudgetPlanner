@@ -46,11 +46,16 @@ export class Footer extends Component {
                 <div className="footer-info container-flex text-center  pt-3" style={{ backgroundColor: "#654321" }}>
                     <div className="row">
                         <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                            <h6 className="text-uppercase font-weight-bold">Company name</h6>
-                            <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"  />
-                            <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-                            consectetur
-                            adipisicing elit.</p>
+                            <h6 className="text-uppercase font-weight-bold">Comview</h6>
+                            <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" />
+                            <img
+                                alt="logo"
+                                src="./logo.jpg"
+                                width="200"
+                                height="150"
+                                className="d-inline-block align-top"
+                            />{' '}
+                            <p>Comview - your best budget measurement app!</p>
 
                         </div>
                         <div className="col-md-2 col-lg-2 col-xl-3 mx-auto mb-4">

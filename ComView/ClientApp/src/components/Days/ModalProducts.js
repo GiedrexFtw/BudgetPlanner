@@ -1,10 +1,13 @@
 ﻿import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 export function ModalProducts( obj ) {
     const [showModal, setShowModal] = useState(false);
     let products =
-        obj.day.products.length != 0 ? <table className='table table-striped' aria-labelledby="tabelLabel">
+        obj.day.products.length != 0 ?
+            <div>
+                <h2>Products bought on {obj.day.date.split('T')[0]}</h2>
+            <table className='table table-striped' aria-labelledby="tabelLabel">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -21,17 +24,19 @@ export function ModalProducts( obj ) {
                     </tr>
                 )}
             </tbody>
-        </table>
+                </table>
+                <Button className="btn btn-danger" style={{textAlign: "center", float:"right"}} onClick={() => setShowModal(false) }>Close</Button>
+            </div>
             : <p>There are no products linked to this day!</p>;
     return (
         <div key={obj.day.id}>
             <button
-                className="btn btn-primary"
+                className="btn btn-info"
                 onClick={() => {
                     setShowModal(true);
                 }}
             >
-                Show Products
+                <i class="fas fa-eye"></i>
             </button>
             <Modal onHide={() => setShowModal(false)} show={showModal}>
                 { products}

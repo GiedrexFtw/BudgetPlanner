@@ -50,6 +50,7 @@ namespace ComView.Controllers
                 user.RefToken = tokens.RefToken;
                 _userRepo.UpdateUser(user);
                 _userRepo.SaveChanges();
+
                 return Ok(tokens);
             }
             return Unauthorized();
@@ -60,24 +61,23 @@ namespace ComView.Controllers
         [HttpPost("/api/register")]
         public IActionResult Register([FromBody] UserRegisterDto userdto)
         {
-            var isValid = _userRepo.Validate(userdto);
-            if (!isValid)
+            bool isValid = _userRepo.Validate(userdto);
+            if (!isValid || !ModelState.IsValid)
             {
                 return Unauthorized();
             }
             User user = _mapper.Map<User>(userdto);
             user.IsAdmin = false;
             
+            //user.RefToken = tokens.RefToken;
+            _userRepo.AddUser(user);
+            _userRepo.SaveChanges();
             var tokens = _jwtAuthenticationManager.Authenticate(user);
-            if (tokens != null)
-            {
-                user.RefToken = tokens.RefToken;
-                _userRepo.AddUser(user);
-                _userRepo.SaveChanges();
-                return Ok(tokens);
-            }
-
-            return Unauthorized();
+            
+            user.RefToken = tokens.RefToken;
+            _userRepo.UpdateUser(user);
+            _userRepo.SaveChanges();
+            return Ok(tokens);
         }
 
         [AllowAnonymous]

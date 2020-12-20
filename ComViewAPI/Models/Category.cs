@@ -15,7 +15,6 @@ namespace ComViewAPI.Models
         public string Title { get; set; }
         [MaxLength(250)]
         public string Description { get; set; }
-        [Required]
         public ICollection<Product> Products { get; set; }
     }
 }

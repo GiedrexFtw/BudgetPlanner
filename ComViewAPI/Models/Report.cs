@@ -18,9 +18,13 @@ namespace ComView.Models
         public string Title { get; set; }
         [MaxLength(250)]
         public string Description { get; set; }
-        [Required]
+        
         public ICollection<Day> Days { get; set; }
         [Required]
         public bool IsExportable { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        public User User { get; set; }
+
     }
 }

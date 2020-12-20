@@ -1,52 +1,161 @@
 /* Provide sufficient contrast against white background */
 @import url('https://fonts.googleapis.com/css?family=Allerta+Stencil');
+@import url('https://fonts.googleapis.com/css?family=Big+Shoulders+Inline+Text');
+
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 code {
-  color: #E01A76;
+    color: #E01A76;
 }
-.container{
-    color:#565656;
+
+.container {
+    color: #565656;
 }
+
 .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
     max-width: 50%;
 }
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.reponsive-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 75%;
 }
+a:hover{
+    color:white !important;
+    text-decoration:none !important;
+}
+table {
+    font-family: "Big Shoulders Inline Text";
+    font-size: 20px;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
 body {
     background-color: #EFEFEF;
 }
-h1{
-    font-family:"Allerta Stencil";
+
+h1 {
+    font-family: "Allerta Stencil";
 }
-.footer-info{
-    color:whitesmoke;
+
+.footer-info {
+    color: whitesmoke;
 }
+
+.add-button {
+    border-radius: 50px 50px 50px 50px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+    .add-button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+        .add-button span:after {
+            content: 'Add';
+            position: relative;
+            opacity: 0;
+            top: 0;
+            right: -10px;
+            transition: 0.5s;
+        }
+
+    .add-button:hover span {
+        padding-right: 10px;
+    }
+
+        .add-button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
+.container details {
+    padding: 5%;
+}
+
+    .container details .img {
+        text-align: center;
+    }
+
+    .container .details-desc {
+        border-left: 3px solid #ded4da;
+    }
+
+        .container details .details p {
+            font-size: 15px;
+            font-weight: bold;
+        }
+.delete-button {
+    border-radius: 50px 50px 50px 50px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+    .delete-button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+    }
+
+        .delete-button span:after {
+            content: 'Delete';
+            position: relative;
+            opacity: 0;
+            top: 0;
+            right: -10px;
+            transition: 0.5s;
+        }
+
+    .delete-button:hover span {
+        padding-right: 10px;
+    }
+
+        .delete-button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
 /*Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
-    
 }
 
 /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
-    
 }
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
-    
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
-    
 }

@@ -2,6 +2,7 @@
 import { Cookies } from 'react-cookie';
 import { Spinner } from 'reactstrap';
 import { ModalProducts } from './ModalProducts';
+import { Link } from 'react-router-dom';
 export class Days extends Component {
     static displayName = Days.name;
 
@@ -30,27 +31,35 @@ export class Days extends Component {
     }
     
      renderDaysTable(days, show) {
-        return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
+         return (
+             <div className = "container">
+             <div className="row">
+                  <div className="col-11"></div>
+                  <Link to="/days/create" className="add-button col-auto"><i className="fas fa-plus"></i> <span></span></Link>
+              </div>
+            <table className='table table-striped table-hover' aria-labelledby="tabelLabel">
+                <thead style={{ backgroundColor: "#9D564E", color: "white" }}>
                     <tr>
                         <th>Date</th>
                         <th>Description</th>
                         <th>Products</th>
-                        <th>Total spent</th>
+                             <th>Total spent (€)</th>
+                             <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {days.map(day =>
                         <tr key={day.id}>
-                            <td>{day.date}</td>
+                            <td>{day.date.split('T')[0]}</td>
                             <td>{day.description}</td>
                             <td><ModalProducts day={day} /></td>
                             <td>{this.calculateTotalSpent(day)}</td>
+                            <td><Link to={"/days/" + day.id} ><i style={{ fontSize: "20px" }} className="fas fa-info-circle"></i></Link></td>
                         </tr>
                     )}
                 </tbody>
-            </table>
+                 </table>
+                 </div>
         );
     }
     render() {

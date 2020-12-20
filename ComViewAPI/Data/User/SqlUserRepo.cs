@@ -44,11 +44,11 @@ namespace ComView.Data
         }
         public void AddUser(User user)
         {
-            _appContext.Users.Add(user);
+            var changes = _appContext.Users.Add(user);
         }
         public bool Validate(UserRegisterDto user)
         {
-            bool userAlreadyExists = this.GetUserByUsername(user.Username) != null ? true : false;
+            bool userAlreadyExists = GetUserByUsername(user.Username) != null ? true : false;
             return user.Password.Length > 3 && user.Username.Length > 3 && !userAlreadyExists;
         }
     }

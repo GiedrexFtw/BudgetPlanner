@@ -14,7 +14,6 @@ namespace ComView.Dto
         public DateTime Date { get; set; }
         [MaxLength(250)]
         public string Description { get; set; }
-        [Required]
         public ICollection<Product> Products { get; set; }
     }
 }

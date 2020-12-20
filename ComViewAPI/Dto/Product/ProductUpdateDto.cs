@@ -14,5 +14,9 @@ namespace ComView.Dto
         public string Description { get; set; }
         [Required]
         public double Amount { get; set; }
+        [Required]
+        public int CategoryId { get; set; }
+        [Required]
+        public int DayId { get; set; }
     }
 }

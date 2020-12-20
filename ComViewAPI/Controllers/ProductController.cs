@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using ComView.Data;
@@ -32,9 +33,27 @@ namespace ComView.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Product>> GetList()
         {
-            var products = _repository.GetProductList();
-
-            return Ok(_mapper.Map<IEnumerable<ProductReadDto>>(products));
+            
+            var identif = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+            if(identif == 0)
+            {
+                return Unauthorized();
+            }
+            IEnumerable<ProductReadDto> products;
+            switch (role)
+            {
+                case "User":
+                    products = _repository.GetProductList(identif);
+                    break;
+                case "Admin":
+                    products = _repository.GetProductList();
+                    break;
+                default:
+                    return Unauthorized();
+            }
+            
+            return Ok(products);
         }
 
         // GET api/<ProductController>/5
@@ -42,14 +61,30 @@ namespace ComView.Controllers
         [HttpGet("{id}", Name = "GetProduct")]
         public ActionResult<ProductReadDto> GetProduct(int id)
         {
-            var product = _repository.GetProductById(id);
+            var identif = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+            if (identif == 0)
+            {
+                return Unauthorized();
+            }
+            ProductReadDto product;
+            switch (role)
+            {
+                case "User":
+                    product = _repository.GetReadDtoById(id);
+                    break;
+                case "Admin":
+                    product = _repository.GetReadDtoById(id, identif);
+                    break;
+                default:
+                    return Unauthorized();
+            }
             if (product != null)
             {
-                return Ok(_mapper.Map<ProductReadDto>(product));
+                return Ok(product);
             }
             else
                 return NotFound();
-           
         }
 
         // POST api/<ProductController>
@@ -58,14 +93,21 @@ namespace ComView.Controllers
         public ActionResult<ProductReadDto> Post([FromBody]ProductCreateDto createDto)
         {
             var product = _mapper.Map<Product>(createDto);
+            var identif = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            if(identif == 0)
+            {
+                return Unauthorized();
+            }
+            product.UserId = identif;
             _repository.CreateProduct(product);
             _repository.SaveChanges();
             var readDto = _mapper.Map<ProductReadDto>(product);
+
             return CreatedAtRoute(nameof(GetProduct), new {Id = readDto.Id }, readDto);
         }
 
         // PUT api/<ProductController>/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,User")]
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] ProductUpdateDto productUpdateDto)
         {
@@ -77,6 +119,7 @@ namespace ComView.Controllers
             _mapper.Map(productUpdateDto, productToUpdate);
             _repository.UpdateProduct(productToUpdate);
             _repository.SaveChanges();
+
             return NoContent();
         }
         // PATCH api/<ProductController>/5
@@ -102,7 +145,7 @@ namespace ComView.Controllers
         }
 
         // DELETE api/<ProductController>/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, User")]
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
@@ -113,6 +156,7 @@ namespace ComView.Controllers
             }
             _repository.DeleteProduct(productToDelete);
             _repository.SaveChanges();
+
             return NoContent();
         }
     }

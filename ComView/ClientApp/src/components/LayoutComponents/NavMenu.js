@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Cookies } from 'react-cookie';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
@@ -11,7 +12,8 @@ export class NavMenu extends Component {
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
-            collapsed: true
+            collapsed: true,
+            jwt: null
         };
     }
 
@@ -20,8 +22,20 @@ export class NavMenu extends Component {
             collapsed: !this.state.collapsed
         });
     }
+    componentDidMount() {
+        let cookie = new Cookies();
+        var token = cookie.get("access_token");
+        console.log(token)
+        this.setState({jwt: token })
+    }
 
     render() {
+        let jwt1 = this.state.jwt == null ? [<NavItem>
+                                    <NavLink tag={Link} className="text-light" to="/login">Login</NavLink>
+                                </NavItem>,
+                                <NavItem>
+                                    <NavLink tag={Link} className="text-light" to="/register">Register</NavLink>
+                                </NavItem>]:<p></p> ;
         return (
             <header>
                 <Navbar className="navbar-expand-md navbar-toggleable-md ng-white border-bottom box-shadow mb-3" light>
@@ -40,9 +54,6 @@ export class NavMenu extends Component {
                         <Collapse className="d-md-inline-flex flex-md-row" isOpen={!this.state.collapsed} navbar>
                             <ul className="navbar-nav flex-grow">
                                 <NavItem>
-                                    <NavLink tag={Link} className="text-light" to="/categories">Categories</NavLink>
-                                </NavItem>
-                                <NavItem>
                                     <NavLink tag={Link} className="text-light" to="/products">Products</NavLink>
                                 </NavItem>
                                 <NavItem>
@@ -51,12 +62,7 @@ export class NavMenu extends Component {
                                 <NavItem>
                                     <NavLink tag={Link} className="text-light" to="/reports">Reports</NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-light" to="/login">Login</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-light" to="/register">Register</NavLink>
-                                </NavItem>
+                                {jwt1 }
                             </ul>
                         </Collapse>
                     </Container>

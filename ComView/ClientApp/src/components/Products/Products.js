@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Cookies } from 'react-cookie';
 import { Spinner } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
+
 export class Products extends Component {
-  static displayName = Products.name;
+    static displayName = Products.name;
 
   constructor(props) {
       super(props);
@@ -18,26 +21,39 @@ export class Products extends Component {
         }
   }
 
-  static renderProductsTable(products) {
-    return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
+    static renderProductsTable(products) {
+      return (
+          <div className="container">
+              <div className="row">
+                  <div className="col-11"></div>
+                  <Link to="/products/create" className="add-button col-auto"><i className="fas fa-plus"></i> <span></span></Link>
+              </div>
+              
+      <table className='table table-striped table-hover mb-4 pb-4 border-bottom border-secondary' aria-labelledby="tabelLabel">
+                  <thead style={{ backgroundColor:"#9D564E", color:"white"}}>
+                      <tr>
+            <th>Category</th>
             <th>Title</th>
             <th>Description</th>
-            <th>Amount</th>
+                          <th>Cost, Eur</th>
+                          <th>Day</th>
+                          <th></th>
           </tr>
         </thead>
         <tbody>
           {products.map(product =>
-            <tr key={product.id}>
+              <tr key={product.id}>
+                  <td>{product.categoryName }</td>
               <td>{product.title}</td>
               <td>{product.description}</td>
-              <td>{product.amount}</td>
+                  <td>{product.amount}</td>
+                  <td> {product.dayDate.split('T')[0]}</td>
+                  <td><Link to={"/products/" + product.id} ><i style={{fontSize:"20px"}} className="fas fa-info-circle"></i></Link></td>
             </tr>
           )}
         </tbody>
-      </table>
+              </table>
+              </div>
     );
   }
     render() {

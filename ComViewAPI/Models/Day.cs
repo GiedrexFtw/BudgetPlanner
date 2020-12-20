@@ -14,7 +14,11 @@ namespace ComView.Models
         public DateTime Date { get; set; }
         [MaxLength(250)]
         public string Description { get; set; }
-        [Required]
         public ICollection<Product> Products { get; set; }
+        public int? ReportId { get; set; }
+        public Report Report { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

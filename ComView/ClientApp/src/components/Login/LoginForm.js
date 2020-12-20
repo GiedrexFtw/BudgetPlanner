@@ -27,7 +27,8 @@ export function LoginForm() {
             expires.setTime(expires.getTime() + (tokens.expires_in * 1000));
             setCookie('access_token', tokens.jwtToken, { path: '/', expires });
             setCookie('refresh_token', tokens.refToken, { path: '/', expires });
-            history.push('/');
+            console.log("here");
+            window.location.replace("/");
         }
     }
 
@@ -69,7 +70,7 @@ export function LoginForm() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </Form.Group>
-                <Button block size="lg" type="submit" disabled={!validateForm()}>
+                <Button block size="lg" type="submit" disabled={!validateForm()} style={{ backgroundColor: "#f4511e" }}>
                     Login
                 </Button>
             </Form>

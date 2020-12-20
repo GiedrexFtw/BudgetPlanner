@@ -25,7 +25,7 @@ namespace ComView.Authentication
             var jwtSecurityToken = new JwtSecurityToken(
 
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(5),
+                expires: DateTime.UtcNow.AddMinutes(15),
                 signingCredentials: new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_key)), SecurityAlgorithms.HmacSha256Signature)
             ) ;
@@ -50,9 +50,10 @@ namespace ComView.Authentication
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
+                    new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User"),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(5),
+                Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             Console.WriteLine(tokenDescriptor.Expires);

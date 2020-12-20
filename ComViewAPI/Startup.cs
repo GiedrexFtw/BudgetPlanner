@@ -36,12 +36,6 @@ namespace ComView
         public void ConfigureServices(IServiceCollection services)
         {
             string key = "this is a test key";
-            /*services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
-            {
-                opt.Audience = Configuration["AAD:ResourceId"];
-                opt.Authority = $"{Configuration["AAD:InstanceId"]}{Configuration["AAD:TenantId"]}";
-                
-            });*/
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
@@ -71,6 +65,7 @@ namespace ComView
             (Configuration.GetConnectionString("connection")));
             services.AddControllers().AddNewtonsoftJson(s => {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                s.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddScoped<IProductRepo, SqlProductRepo>();
             services.AddScoped<IDayRepo, SqlDayRepo>();
